@@ -43,7 +43,7 @@ h1 span:nth-child(2){padding-left:.55em}h1 span:nth-child(3){padding-left:.15em}
 @keyframes wig{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg) scale(1.06)}75%{transform:rotate(4deg) scale(1.06)}}
 
 .strip{background:var(--cream);color:var(--cocoa);overflow:hidden;white-space:nowrap;padding:.9rem 0;border-block:2px dashed #d9b894}
-.strip div{display:inline-block;will-change:transform;animation:slide 26s linear infinite;font:700 1.9rem/1 var(--display)}
+.strip div{display:inline-block;will-change:transform;font:700 1.9rem/1 var(--display)}
 .strip svg{width:.8em;height:.8em;margin:0 1.1rem;color:var(--heart);vertical-align:-.05em}
 @keyframes slide{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 
@@ -171,7 +171,11 @@ footer{padding:2.5rem 1.2rem;text-align:center;color:var(--soft)}footer b{font:7
 var $=function(s){return document.querySelector(s)},D=document.documentElement;D.classList.add('js');
 function S(p){return window.IMG?IMG[p]:'images/'+p+'.jpg'}
 var H='<svg class="i f"><use href="#heart"/></svg>',P='<svg class="i f"><use href="#paw"/></svg>',one='Котики рядом'+H+'Котики рядом'+P+'Котики рядом'+H+'Котики рядом'+P;
-$('#mq').innerHTML='<span>'+one+'</span><span>'+one+'</span>';
+(function(){var mq=$('#mq'),box=mq.parentNode,w=900,x=0,t0=0;
+function build(){mq.innerHTML='<span>'+one+'</span>';w=mq.firstChild.getBoundingClientRect().width||w;var n=Math.ceil(box.clientWidth/w)+1,s='';for(var i=0;i<n;i++)s+='<span>'+one+'</span>';mq.innerHTML=s;w=mq.firstChild.getBoundingClientRect().width||w}
+build();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(build);window.addEventListener('resize',build);window.addEventListener('load',build);
+function tick(t){if(!t0)t0=t;var d=Math.min((t-t0)/1000,.1);t0=t;x=(x+d*70)%w;mq.style.transform='translate3d('+(-x)+'px,0,0)';requestAnimationFrame(tick)}
+requestAnimationFrame(tick)})();
 function burst(el,n){var r=el.getBoundingClientRect();for(var i=0;i<n;i++){var h=document.createElement('span');h.className='pf';h.textContent='\u2665';
  h.style.left=(r.left+Math.random()*r.width)+'px';h.style.top=(r.top+r.height/2)+'px';h.style.setProperty('--dx',(Math.random()*160-80)+'px');h.style.setProperty('--rr',(Math.random()*80-40)+'deg');
  h.style.fontSize=(1+Math.random()*1.4)+'rem';document.body.appendChild(h);(function(x){setTimeout(function(){x.remove()},1500)})(h)}}
