@@ -483,7 +483,7 @@ footer{padding:2.5rem 1.2rem;text-align:center;color:var(--soft)}footer b{font:7
 </main>
 <footer><div class="logo"><svg><use href="#logo"/></svg>Котики рядом</div><br><b>Просто любить их</b><p style="margin:.8rem 0 0">Над проектом работали</p><div class="team" id="team"></div>Группа 2Р</footer>
 <div class="lb" id="lb" role="dialog" aria-label="Фото"><button class="x" aria-label="Закрыть">×</button><button class="pv" aria-label="Назад">‹</button><img alt=""><button class="nx" aria-label="Дальше">›</button></div>
-<script src="cats.js"></script>
+<script src="cats.js?v=92"></script>
 <script>
 var $=function(s){return document.querySelector(s)},D=document.documentElement;D.classList.add('js');
 function S(p){return window.IMG?IMG[p]:'images/'+p+'.jpg'}
@@ -571,8 +571,8 @@ function quiz(){var b=$('#qbox');
  /* два главных характера: больше баллов, при равенстве выигрывает тот, что выбран позже */
  var tr=[0,1,2,3,4,5].sort(function(a,b){return sc[b]-sc[a]||last[b]-last[a]}).slice(0,2),w=0;
  PAIRS.forEach(function(p,i){if(p.indexOf(tr[0])>-1&&p.indexOf(tr[1])>-1)w=i});
- var c=CATS[w],label=c.name||('Котик '+c.tag),who=c.name||('котик '+c.tag),love='';
- c.facts.forEach(function(f){if(f[0]==='Любит')love=f[1]});
+ var c=CATS[w]||CATS[0],label=c.name||('Котик '+c.tag),who=c.name||('котик '+c.tag),love='';
+ (c.facts||[]).forEach(function(f){if(f[0]==='Любит')love=f[1]});
  b.innerHTML='<div class="qr"><img src="'+S(c.photos[0])+'" alt="'+label+'"><p>Ты похож на</p><h3>'+label+'</h3>'+
   '<div class="qt"><span>'+TRAITS[tr[0]][0]+'</span><span>'+TRAITS[tr[1]][0]+'</span></div>'+
   '<p>'+TRAITS[tr[0]][1]+' '+TRAITS[tr[1]][1]+'</p><p>Как и '+who+', ты любишь '+love+'.</p>'+
