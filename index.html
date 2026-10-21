@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Котики делают мир лучше</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%237b543d'/%3E%3Cg fill='%23fdeedd'%3E%3Cellipse cx='12' cy='16.2' rx='5' ry='4.2'/%3E%3Cellipse cx='4.6' cy='11' rx='2' ry='2.7'/%3E%3Cellipse cx='8.6' cy='5.9' rx='2' ry='2.8'/%3E%3Cellipse cx='15.4' cy='5.9' rx='2' ry='2.8'/%3E%3Cellipse cx='19.4' cy='11' rx='2' ry='2.7'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
@@ -20,9 +21,156 @@ img{display:block;max-width:100%}button{font:inherit;color:inherit;-webkit-tap-h
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}svg.f{fill:currentColor;stroke:none}
 
-.hero{position:relative;min-height:100vh;min-height:100svh;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:2rem;padding:4rem clamp(1.2rem,6vw,5rem);color:var(--cream);overflow:hidden;background:radial-gradient(120% 90% at 80% 20%,#9a6e53 0%,var(--cocoa) 45%,var(--cocoa-d) 100%)}
-.tag{display:inline-flex;align-items:center;gap:.6rem;font:600 1.7rem/1 var(--display);margin-bottom:1.4rem;animation:in .8s .1s both}
-.tag svg{width:2.4rem;height:2.4rem;fill:var(--cream)}
+/* Шапка */
+:root {
+    --hh: 4rem;
+}
+
+section,
+.hero {
+    scroll-margin-top: var(--hh);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top, 0px);
+    background: var(--bg);
+    z-index: 49;
+}
+
+.top {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: var(--hh);
+    padding: 0 clamp(.8rem, 3vw, 2.2rem);
+    background: var(--bg);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px dashed var(--line);
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    flex: none;
+    gap: .6rem;
+    color: var(--ink);
+    text-decoration: none;
+    font: 700 1.9rem/1 var(--display);
+}
+
+.brand svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: .4rem;
+    border-radius: 14px;
+    background: var(--cocoa);
+    fill: var(--cream);
+    transition: transform .2s;
+}
+
+.brand:hover svg {
+    transform: rotate(-8deg) scale(1.06);
+}
+
+.menu {
+    position: relative;
+    display: flex;
+    gap: .3rem;
+    min-width: 0;
+    margin-inline: auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.menu::-webkit-scrollbar {
+    display: none;
+}
+
+.menu a {
+    flex: none;
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    color: var(--soft);
+    text-decoration: none;
+    font-weight: 800;
+    font-size: .98rem;
+    line-height: 1.2;
+    transition: background .2s, color .2s;
+}
+
+.menu a:hover {
+    background: var(--card);
+    color: var(--ink);
+}
+
+.menu a.on {
+    background: var(--cocoa);
+    color: var(--cream);
+}
+
+.cta {
+    display: inline-flex;
+    align-items: center;
+    flex: none;
+    gap: .5rem;
+    padding: .55rem 1.2rem;
+    border-radius: 999px;
+    background: var(--cocoa);
+    color: var(--cream);
+    text-decoration: none;
+    font-weight: 800;
+    font-size: .95rem;
+    line-height: 1.2;
+    box-shadow: 0 4px 0 var(--cocoa-d);
+    transition: transform .15s, box-shadow .15s;
+}
+
+.cta:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--cocoa-d);
+}
+
+.cta svg {
+    color: #ff8fa3;
+    width: 1.1em;
+    height: 1.1em;
+}
+
+@media (max-width: 860px) {
+    .cta {
+        display: none;
+    }
+}
+
+/* Результат теста */
+.qt {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    justify-content: center;
+    margin: .4rem 0 1rem;
+}
+
+.qt span {
+    padding: .2rem 1rem;
+    border-radius: 999px;
+    background: var(--cocoa);
+    color: var(--cream);
+    font-weight: 800;
+    font-size: .95rem;
+}
+
+.hero{position:relative;min-height:calc(100vh - var(--hh));min-height:calc(100svh - var(--hh));display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:2rem;padding:4rem clamp(1.2rem,6vw,5rem);color:var(--cream);overflow:hidden;background:radial-gradient(120% 90% at 80% 20%,#9a6e53 0%,var(--cocoa) 45%,var(--cocoa-d) 100%)}
 h1{margin:0;font:700 clamp(3.4rem,10.5vw,8.4rem)/.92 var(--display)}
 h1 span{display:block;animation:rise .9s cubic-bezier(.2,.9,.25,1.1) both;animation-delay:calc(.25s + var(--i)*.18s)}
 h1 span:nth-child(2){padding-left:.55em}h1 span:nth-child(3){padding-left:.15em}
@@ -93,6 +241,35 @@ dt{font:700 1.7rem/1 var(--display);color:var(--accent)}dd{margin:.15rem 0 0;fon
 .fr{transform:rotateY(180deg)}.fr img{width:100%;height:100%;object-fit:cover}
 .tile.ok .fr{border-color:var(--heart)}.tile.ok .in{animation:wig .6s}
 .win{min-height:2.4rem;margin-top:1.4rem;font:700 2rem/1.2 var(--display);color:var(--accent)}
+.logo{display:inline-flex;align-items:center;gap:.55rem;font:700 1.9rem/1 var(--display)}
+.logo svg{width:2.6rem;height:2.6rem;fill:var(--cream)}footer .logo svg{fill:var(--cocoa)}footer .logo{color:var(--ink);margin-bottom:.6rem}
+nav.av{position:sticky;top:calc(var(--hh) + env(safe-area-inset-top,0px));z-index:20;display:flex;gap:.7rem;overflow-x:auto;padding:.7rem .2rem .9rem;margin:0 0 1.2rem;background:var(--bg);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+nav.av::-webkit-scrollbar{display:none}
+.av button{flex:none;width:4.6rem;background:none;border:0;padding:0;cursor:pointer;text-align:center;font-weight:800;font-size:.78rem;line-height:1.2;color:var(--soft)}
+.av img{width:3.6rem;height:3.6rem;margin:0 auto .2rem;border-radius:50%;object-fit:cover;border:3px solid var(--cream);box-shadow:0 4px 10px rgba(60,35,20,.25);transition:transform .2s,border-color .2s}
+.av button.on img{transform:scale(1.14);border-color:var(--accent)}.av button.on{color:var(--ink)}
+.card{scroll-margin-top:calc(var(--hh) + 7rem)}
+.zm{position:absolute;left:.7rem;bottom:.7rem;z-index:2;width:2.4rem;height:2.4rem;padding:0;border:0;border-radius:50%;background:var(--cream);color:var(--cocoa-d);display:grid;place-items:center;cursor:pointer;font-size:1.2rem}
+.about{margin:0 0 1rem;font-size:1.1rem}
+.pet{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.3rem;border:0;cursor:pointer;background:var(--cocoa);color:var(--cream);font-weight:800;padding:.7rem 1.3rem;border-radius:999px;box-shadow:0 6px 0 var(--cocoa-d);transition:transform .15s,box-shadow .15s}
+.pet:active{transform:translateY(6px);box-shadow:0 0 0 var(--cocoa-d)}.pet svg{color:#ff8fa3;width:1.2em;height:1.2em}
+.pet b{background:var(--cream);color:var(--cocoa-d);border-radius:999px;padding:0 .6rem;min-width:1.8rem;text-align:center}
+.lb{position:fixed;inset:0;z-index:70;display:none;place-items:center;background:rgba(30,18,10,.92);padding:1rem}
+.lb.on{display:grid}.lb img{max-width:min(94vw,900px);max-height:86vh;border:8px solid var(--cream);border-radius:22px}
+.lb button{position:absolute;width:3rem;height:3rem;padding:0;border:0;border-radius:50%;background:var(--cream);color:var(--cocoa-d);font-size:1.6rem;cursor:pointer}
+.lb .x{top:calc(1rem + env(safe-area-inset-top,0px));right:1rem}.lb .pv{left:.6rem;top:50%}.lb .nx{right:.6rem;top:50%}
+.quiz{max-width:760px;margin-inline:auto;text-align:center}
+.qbox{background:var(--card);border:2px solid var(--line);border-radius:32px;padding:clamp(1.3rem,4vw,2.4rem)}
+.qdots{display:flex;gap:.4rem;justify-content:center;margin-bottom:1rem}.qdots i{width:.8rem;height:.8rem;border-radius:50%;background:var(--line)}.qdots i.on{background:var(--accent)}
+.qq{font:700 2.3rem/1.1 var(--display);margin:0 0 1.2rem}.qo{display:grid;gap:.7rem}
+.qo button{border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:18px;padding:.85rem 1rem;font-weight:700;cursor:pointer;transition:transform .15s,border-color .15s}
+.qo button:active{transform:scale(.98);border-color:var(--accent)}.qa{animation:in .5s both}
+.qr img{width:min(260px,70%);aspect-ratio:1;object-fit:cover;border:8px solid var(--cream);border-radius:30px;box-shadow:0 14px 28px rgba(60,35,20,.3);margin:0 auto 1rem;animation:pop2 .7s both}
+@keyframes pop2{from{opacity:0;transform:scale(.8) rotate(-6deg)}to{opacity:1;transform:none}}
+.qr h3{font:700 3.4rem/1 var(--display);margin:.2rem 0}.qr p{margin:0 0 1.2rem}
+.qbox .btn{background:var(--cocoa);color:var(--cream);box-shadow:0 6px 0 var(--cocoa-d);margin:.3rem}
+.team{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin:.6rem 0 1.2rem}
+.team span{border:2px dashed var(--line);border-radius:999px;padding:.3rem 1rem;font-weight:700}.team span.f{border-style:solid;background:var(--card);color:var(--ink)}
 .smile{text-align:center;background:var(--cocoa);color:var(--cream)}
 .smile p{margin:0 auto 1.8rem;max-width:34ch;color:#f4dcc3}
 .count{font:700 clamp(4rem,14vw,8rem)/1 var(--display);margin:.2rem 0 1.4rem}
@@ -108,18 +285,151 @@ footer{padding:2.5rem 1.2rem;text-align:center;color:var(--soft)}footer b{font:7
 .poster{max-width:560px;margin-inline:auto}.steps{grid-template-columns:1fr}.step:nth-child(2){margin-left:0}.card{border-radius:30px}
 .gal{max-width:380px;width:100%;margin-inline:auto}
 }
+
+/* Телефон: бургер-меню и первый экран по центру */
+.bc,
+.bb {
+    display: none;
+}
+
+@media (max-width: 700px) {
+    :root {
+        --hh: 3.6rem;
+    }
+
+    .bc {
+        display: block;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+    }
+
+    .bb {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 2.8rem;
+        height: 2.8rem;
+        margin-left: auto;
+        border-radius: 14px;
+        background: var(--cocoa);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .bb i {
+        display: block;
+        width: 1.3rem;
+        height: 3px;
+        border-radius: 3px;
+        background: var(--cream);
+        transition: transform .25s, opacity .25s;
+    }
+
+    .bc:focus-visible + .bb {
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
+    }
+
+    .bc:checked + .bb i:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .bc:checked + .bb i:nth-child(2) {
+        opacity: 0;
+    }
+
+    .bc:checked + .bb i:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: .3rem;
+        margin: 0;
+        padding: .8rem clamp(.8rem, 3vw, 2.2rem) 1rem;
+        overflow: visible;
+        background: var(--bg);
+        border-bottom: 2px dashed var(--line);
+        box-shadow: 0 18px 30px rgba(30, 15, 8, .25);
+    }
+
+    .bc:checked ~ .menu {
+        display: flex;
+        animation: in .25s both;
+    }
+
+    .menu a {
+        padding: .8rem 1.1rem;
+        border-radius: 16px;
+        font-size: 1.15rem;
+    }
+
+    .hero {
+        align-content: center;
+        gap: 1.5rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    h1 span:nth-child(2),
+    h1 span:nth-child(3) {
+        padding-left: 0;
+    }
+
+    .lead {
+        margin: 1.2rem auto 1.6rem;
+    }
+
+    .collage {
+        max-width: 330px;
+        height: 350px;
+    }
+}
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="logo" viewBox="0 0 24 24"><ellipse cx="12" cy="16.2" rx="5" ry="4.2"/><ellipse cx="4.6" cy="11" rx="2" ry="2.7"/><ellipse cx="8.6" cy="5.9" rx="2" ry="2.8"/><ellipse cx="15.4" cy="5.9" rx="2" ry="2.8"/><ellipse cx="19.4" cy="11" rx="2" ry="2.7"/><path fill="#e8647a" transform="translate(12 16.1) scale(.4) translate(-12 -13)" d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3 5.5 6.2 5.5c2 0 3.2 1.1 3.8 2.2.6-1.1 1.8-2.2 3.8-2.2 3.2 0 5 3.1 3.7 6.3C19.5 16.4 12 21 12 21z"/></symbol>
 <symbol id="heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3 5.5 6.2 5.5c2 0 3.2 1.1 3.8 2.2.6-1.1 1.8-2.2 3.8-2.2 3.2 0 5 3.1 3.7 6.3C19.5 16.4 12 21 12 21z"/></symbol>
 <symbol id="paw" viewBox="0 0 24 24"><ellipse cx="12" cy="16.2" rx="5" ry="4.2"/><ellipse cx="4.6" cy="11" rx="2" ry="2.7"/><ellipse cx="8.6" cy="5.9" rx="2" ry="2.8"/><ellipse cx="15.4" cy="5.9" rx="2" ry="2.8"/><ellipse cx="19.4" cy="11" rx="2" ry="2.7"/></symbol>
 <symbol id="bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
 <symbol id="star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
 </svg>
-<header class="hero">
+<header class="top">
+    <a class="brand" href="#top" aria-label="В начало">
+        <svg><use href="#logo"/></svg>
+        <span>Котики рядом</span>
+    </a>
+    <input class="bc" type="checkbox" id="burger" aria-label="Открыть меню">
+    <label class="bb" for="burger" aria-hidden="true">
+        <i></i>
+        <i></i>
+        <i></i>
+    </label>
+    <nav class="menu" aria-label="Разделы сайта">
+        <a href="#idea">Идея</a>
+        <a href="#meet">Котики</a>
+        <a href="#game">Игра</a>
+        <a href="#quiz">Тест</a>
+        <a href="#check">Улыбка</a>
+    </nav>
+    <a class="cta" href="#quiz">
+        <svg class="i f"><use href="#heart"/></svg>
+        Какой я котик?
+    </a>
+</header>
+<div class="hero" id="top">
   <div>
-    <div class="tag"><svg><use href="#paw"/></svg>Котики рядом</div>
     <h1><span style="--i:0">Котики</span><span style="--i:1">делают</span><span style="--i:2">мир лучше</span></h1>
     <p class="lead">Один взгляд, и день уже добрее.</p>
     <button class="btn h" id="go"><svg class="i f"><use href="#heart"/></svg>Познакомиться с котиками</button>
@@ -131,10 +441,10 @@ footer{padding:2.5rem 1.2rem;text-align:center;color:var(--soft)}footer b{font:7
     <span class="fh" style="width:30px;height:30px;left:46%;top:58%;animation-delay:-1.5s"><svg class="i f"><use href="#paw"/></svg></span>
     <span class="fh" style="width:34px;height:34px;left:-2%;bottom:14%;animation-delay:-3s"><svg class="i f"><use href="#heart"/></svg></span>
   </div>
-</header>
+</div>
 <div class="strip" aria-hidden="true"><div id="mq"></div></div>
 <main>
-<section class="idea">
+<section class="idea" id="idea">
   <figure class="poster rv"><picture><source media="(max-width:860px)" srcset="images/collage.jpg"><img src="images/collagew.jpg" alt="Все наши котики на одной фотографии" loading="lazy"></picture></figure>
   <div class="rv">
     <h2>Идея в трёх строках</h2>
@@ -148,6 +458,7 @@ footer{padding:2.5rem 1.2rem;text-align:center;color:var(--soft)}footer b{font:7
 <section class="meet" id="meet">
   <h2>Знакомьтесь, котики рядом</h2>
   <p class="sub">Листайте фото: нажмите на снимок или проведите пальцем. Нажмите на имя, и котик пришлёт сердечки.</p>
+  <nav class="av" id="av" aria-label="Быстрый переход к котикам"></nav>
   <div id="cats"></div>
 </section>
 <section class="game rv" id="game">
@@ -157,7 +468,12 @@ footer{padding:2.5rem 1.2rem;text-align:center;color:var(--soft)}footer b{font:7
   <div class="board" id="board"></div>
   <div class="win" id="win" role="status"></div>
 </section>
-<section class="smile">
+<section class="quiz rv" id="quiz">
+  <h2>Какой ты котик?</h2>
+  <p class="sub" style="margin-inline:auto">Шесть вопросов, и мы подберём тебе котика из пятнадцати. Никакой случайности: у каждого котика свой характер.</p>
+  <div class="qbox" id="qbox"></div>
+</section>
+<section class="smile" id="check">
   <h2>Проверим, что работает?</h2>
   <p>Посмотри на котиков и нажми, когда улыбнёшься.</p>
   <div class="count" id="n" aria-live="polite">0</div>
@@ -165,7 +481,8 @@ footer{padding:2.5rem 1.2rem;text-align:center;color:var(--soft)}footer b{font:7
   <div class="msg" id="msg"></div>
 </section>
 </main>
-<footer><b>Просто любить их</b><br>Группа 2Р. Проект «Котики рядом»</footer>
+<footer><div class="logo"><svg><use href="#logo"/></svg>Котики рядом</div><br><b>Просто любить их</b><p style="margin:.8rem 0 0">Над проектом работали</p><div class="team" id="team"></div>Группа 2Р</footer>
+<div class="lb" id="lb" role="dialog" aria-label="Фото"><button class="x" aria-label="Закрыть">×</button><button class="pv" aria-label="Назад">‹</button><img alt=""><button class="nx" aria-label="Дальше">›</button></div>
 <script src="cats.js"></script>
 <script>
 var $=function(s){return document.querySelector(s)},D=document.documentElement;D.classList.add('js');
@@ -185,13 +502,15 @@ CATS.forEach(function(c,k){var ph=c.photos,view;
  if(ph.length){view='<div class="view" style="--tilt:'+c.tilt+'deg">'+ph.map(function(p,i){return '<img src="'+S(p)+'" alt="'+(c.name||c.tag)+', фото '+(i+1)+'"'+(i?' loading="lazy"':'')+(i?'':' class="on"')+'>'}).join('')+(ph.length>1?'<span class="cnt">1 / '+ph.length+'</span>':'')+'</div>'+
   (ph.length>1?'<div class="thumbs">'+ph.map(function(p,i){return '<button aria-label="Фото '+(i+1)+'"'+(i?'':' class="on"')+'><img src="'+S(p)+'" alt=""></button>'}).join('')+'</div>':'');
  }else view='<div class="soon" style="--tilt:'+c.tilt+'deg"><div><svg><use href="#paw"/></svg>Фото скоро</div></div>';
- out+='<article class="card rv" style="--tint:'+c.tint+'"><div class="gal">'+view+'</div><div>'+(c.tag?'<span class="tg">'+c.tag+'</span>':'')+
-  '<button class="name'+(c.name?'':' empty')+'">'+(c.name||'Имя')+'</button><dl>'+c.facts.map(function(f){return '<div><dt>'+f[0]+'</dt><dd>'+f[1]+'</dd></div>'}).join('')+'</dl></div></article>'});
+ out+='<div class="card rv" style="--tint:'+c.tint+'"><div class="gal">'+view+'</div><div>'+(c.tag?'<span class="tg">'+c.tag+'</span>':'')+
+  '<button class="name'+(c.name?'':' empty')+'">'+(c.name||'Имя')+'</button><dl>'+c.facts.map(function(f){return '<div><dt>'+f[0]+'</dt><dd>'+f[1]+'</dd></div>'}).join('')+'</dl></div></div>'});
 $('#cats').innerHTML=out;
-document.querySelectorAll('.card').forEach(function(card){var v=card.querySelector('.view');
- if(v){var im=v.querySelectorAll('img'),th=card.querySelectorAll('.thumbs button'),cn=v.querySelector('.cnt'),i=0,x0=0;
+document.querySelectorAll('.card').forEach(function(card,ci){var v=card.querySelector('.view'),C=CATS[ci],dl=card.querySelector('dl');card.id='cat-'+ci;
+ if(C.about)dl.insertAdjacentHTML('beforebegin','<p class="about">'+C.about+'</p>');
+ dl.insertAdjacentHTML('afterend','<button class="pet"><svg class="i f"><use href="#heart"/></svg>Погладить<b>0</b></button>');
+ if(v){v.insertAdjacentHTML('beforeend','<button class="zm" aria-label="Увеличить"><svg class="i" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>');var im=v.querySelectorAll('img'),th=card.querySelectorAll('.thumbs button'),cn=v.querySelector('.cnt'),i=0,x0=0;
   function show(n){i=(n+im.length)%im.length;im.forEach(function(e,j){e.classList.toggle('on',j===i)});th.forEach(function(e,j){e.classList.toggle('on',j===i)});if(cn)cn.textContent=(i+1)+' / '+im.length}
-  if(im.length>1){v.addEventListener('click',function(){show(i+1)});
+  if(im.length>1){v.addEventListener('click',function(e){if(e.target.closest('.zm'))return;show(i+1)});
    v.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
    v.addEventListener('touchend',function(e){var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>40){show(i+(d<0?1:-1));v._s=Date.now()}},{passive:true});
    th.forEach(function(b,j){b.addEventListener('click',function(){show(j)})})}}
@@ -211,9 +530,67 @@ $('#board').addEventListener('click',function(e){var t=e.target.closest('.tile')
   if(pairs===G.length){$('#win').textContent='Все пары найдены за '+moves+' ходов! Котики рады \u2665';burst($('#win'),16)}}
  else{lock=true;setTimeout(function(){a.classList.remove('fl');t.classList.remove('fl');lock=false},800)}});
 $('#rs').onclick=deal;deal();
+var L={a:[],i:0},lb=$('#lb'),lbi=lb.querySelector('img');
+function lbShow(){lbi.src=S(L.a[L.i]);lb.querySelector('.pv').style.display=lb.querySelector('.nx').style.display=L.a.length>1?'':'none'}
+function lbGo(d){L.i=(L.i+d+L.a.length)%L.a.length;lbShow()}
+function lbClose(){lb.classList.remove('on')}
+lb.querySelector('.x').onclick=lbClose;lb.querySelector('.pv').onclick=function(){lbGo(-1)};lb.querySelector('.nx').onclick=function(){lbGo(1)};
+lb.addEventListener('click',function(e){if(e.target===lb)lbClose()});
+var lx=0;lb.addEventListener('touchstart',function(e){lx=e.touches[0].clientX},{passive:true});
+lb.addEventListener('touchend',function(e){var d=e.changedTouches[0].clientX-lx;if(Math.abs(d)>50&&L.a.length>1)lbGo(d<0?1:-1)},{passive:true});
+document.addEventListener('keydown',function(e){if(!lb.classList.contains('on'))return;if(e.key==='Escape')lbClose();if(e.key==='ArrowRight')lbGo(1);if(e.key==='ArrowLeft')lbGo(-1)});
+document.addEventListener('click',function(e){var z=e.target.closest('.zm');
+ if(z){var n=+z.closest('.card').id.split('-')[1],k=0;z.parentNode.querySelectorAll('img').forEach(function(m,j){if(m.classList.contains('on'))k=j});L.a=CATS[n].photos;L.i=k;lbShow();lb.classList.add('on');return}
+ var p=e.target.closest('.pet');if(p){var b=p.querySelector('b');b.textContent=+b.textContent+1;burst(p,7)}});
+var av=$('#av');
+av.innerHTML=CATS.map(function(c,i){return '<button data-i="'+i+'" aria-label="'+(c.name||c.tag)+'"><img src="'+S(c.photos[0])+'" alt=""><span>'+(c.name||c.tag||'')+'</span></button>'}).join('');
+av.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var c=$('#cat-'+b.dataset.i);c.scrollIntoView({behavior:'smooth',block:'start'});var nm=c.querySelector('.name');nm.classList.remove('go');void nm.offsetWidth;nm.classList.add('go')});
+if('IntersectionObserver' in window){var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=e.target.id.split('-')[1];av.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.dataset.i===i)});var b=av.querySelector('button[data-i="'+i+'"]');av.scrollTo({left:b.offsetLeft-av.clientWidth/2+b.offsetWidth/2,behavior:'smooth'})}})},{rootMargin:'-35% 0px -55% 0px'});document.querySelectorAll('.card').forEach(function(c){io2.observe(c)})}
+var Q=[
+['Идеальное утро?',['Поймать солнечный лучик','Обследовать всю квартиру','Ещё полчаса поваляться','Обниматься под одеялом','Покрасоваться перед зеркалом','Спокойно заняться делами']],
+['Любимое место?',['Подоконник с видом','Любая коробка или машинка','Мягкий плед','Чьи-нибудь руки','Центр внимания','Рабочий стол с ноутбуком']],
+['Как проводишь вечер?',['Любуюсь закатом','Лезу туда, куда не просили','Лежу кверху лапами','Сижу рядом с близкими','Позирую для фотографий','Привожу дела в порядок']],
+['Что такое счастье?',['Красивый свет','Новые открытия','Покой и вкусняшки','Тепло рядом','Аплодисменты и фото','Тишина и порядок на столе']],
+['Твой девиз?',['Красота спасёт мир','Любопытство не порок','Спешить некуда','Обнимашки решают всё','Жизнь — это сцена','Всё под контролем']],
+['Что делаешь, когда грустно?',['Смотрю в окно и мечтаю','Иду искать приключения','Заворачиваюсь в плед','Иду обниматься','Устраиваю себе праздник','Раскладываю всё по полочкам']]];
+/* Порядок ответов в вопросе = порядок характеров в TRAITS (кроме сдвига на номер вопроса, чтобы первый ответ не был всегда одним и тем же) */
+var qi=0,sc=[0,0,0,0,0,0],last=[-1,-1,-1,-1,-1,-1];
+function quiz(){var b=$('#qbox');
+ if(qi<Q.length){var o='';
+  for(var j=0;j<6;j++){var k=(j+qi)%6;o+='<button data-k="'+k+'">'+Q[qi][1][k]+'</button>'}
+  b.innerHTML='<div class="qa"><div class="qdots">'+Q.map(function(_,k){return '<i'+(k<=qi?' class="on"':'')+'></i>'}).join('')+'</div><h3 class="qq">'+Q[qi][0]+'</h3><div class="qo">'+o+'</div></div>';return}
+ /* два главных характера: больше баллов, при равенстве выигрывает тот, что выбран позже */
+ var tr=[0,1,2,3,4,5].sort(function(a,b){return sc[b]-sc[a]||last[b]-last[a]}).slice(0,2),w=0;
+ CATS.forEach(function(c,i){if(c.traits.indexOf(tr[0])>-1&&c.traits.indexOf(tr[1])>-1)w=i});
+ var c=CATS[w],label=c.name||('Котик '+c.tag),who=c.name||('котик '+c.tag),love='';
+ c.facts.forEach(function(f){if(f[0]==='Любит')love=f[1]});
+ b.innerHTML='<div class="qr"><img src="'+S(c.photos[0])+'" alt="'+label+'"><p>Ты похож на</p><h3>'+label+'</h3>'+
+  '<div class="qt"><span>'+TRAITS[tr[0]][0]+'</span><span>'+TRAITS[tr[1]][0]+'</span></div>'+
+  '<p>'+TRAITS[tr[0]][1]+' '+TRAITS[tr[1]][1]+'</p><p>Как и '+who+', ты любишь '+love+'.</p>'+
+  '<button class="btn" id="qg">Познакомиться</button><button class="btn" id="qa">Пройти ещё раз</button></div>';
+ burst($('#qbox'),14);$('#qg').onclick=function(){$('#cat-'+w).scrollIntoView({behavior:'smooth'})};$('#qa').onclick=function(){qi=0;sc=[0,0,0,0,0,0];last=[-1,-1,-1,-1,-1,-1];quiz()}}
+$('#qbox').addEventListener('click',function(e){var b=e.target.closest('.qo button');if(!b)return;var k=+b.dataset.k;sc[k]++;last[k]=qi;qi++;quiz()});
+quiz();
+var T=window.TEAM||[];$('#team').innerHTML=(T.length?T:['','','']).map(function(n){return '<span'+(n?' class="f"':'')+'>'+(n||'Имя участника')+'</span>'}).join('');
 var c=0,words=['Уже лучше!','Улыбка засчитана','Мир стал чуть добрее','Ещё один котик рядом','Работает!'];
 $('#smile').onclick=function(){c++;$('#n').textContent=c;$('#msg').textContent=words[(c-1)%words.length];burst(this,9)};
 $('#go').onclick=function(){burst(this,12);setTimeout(function(){$('#meet').scrollIntoView({behavior:'smooth'})},600)};
+
+var menu=$('.menu'),links=menu.querySelectorAll('a');
+menu.addEventListener('click',function(e){if(e.target.closest('a'))$('#burger').checked=false});
+if('IntersectionObserver' in window){
+    var spy=new IntersectionObserver(function(es){
+        es.forEach(function(e){
+            if(!e.isIntersecting)return;
+            links.forEach(function(a){
+                var on=a.getAttribute('href')==='#'+e.target.id;
+                a.classList.toggle('on',on);
+                if(on)menu.scrollTo({left:a.offsetLeft-menu.clientWidth/2+a.offsetWidth/2,behavior:'smooth'})
+            })
+        })
+    },{rootMargin:'-45% 0px -50% 0px'});
+    ['top','idea','meet','game','quiz','check'].forEach(function(id){spy.observe(document.getElementById(id))})
+}
 </script>
 </body>
 </html>
